@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="file" id="file">
+    <button id="btn">上传</button>
+
+    <input type="file" multiple id="file2">
+    <button id="btn2">上传</button>
+    <script>
+        var file = document.getElementById('file');
+        var btn = document.getElementById('btn');
+        btn.onclick = function () {
+            var formData = new FormData();
+            formData.append('file', file.files[0]);
+            // fetch('http://localhost:3000/file/upload', {
+            // fetch('http://localhost:3000/file/upload1', {
+            fetch('http://localhost:3000/file/upload2', {
+                method: 'POST',
+                body: formData
+            })
+        }
+
+        btn2.onclick = function () {
+            var formData = new FormData();
+            for (var i = 0; i < file2.files.length; i++) {
+                const randomName = Math.random().toString(36).substr(2);
+                formData.append(randomName, file2.files[i]);
+            }
+            // fetch('http://localhost:3000/file/upload/samename', {
+            fetch('http://localhost:3000/file/upload/notknow', {
+
+                method: 'POST',
+                body: formData
+            })
+        }
+    </script>
+
+</body>
+
+</html>
