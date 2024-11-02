@@ -13,7 +13,17 @@ export class FileController {
   async uploadFile4(@UploadedFiles() files: Array<Express.Multer.File>) {
     console.log(files);
   }
-
+  
+  @Post('upload/know')
+  @UseInterceptors(FileFieldsInterceptor([
+    { name: 'file1', maxCount: 1 },
+    { name: 'file2', maxCount: 1 },
+  ],{
+    storage
+  }))
+  async uploadFile5(@UploadedFiles() files: { file1?: Express.Multer.File[], file2?: Express.Multer.File[] }) {
+    console.log(files);
+  }
 
   @Post('/upload/samename')
   @UseInterceptors(FilesInterceptor('file', 10, {
